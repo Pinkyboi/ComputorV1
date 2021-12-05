@@ -1,6 +1,7 @@
 
 def firstDegree(a, b):
-    print("the solution is:", f'{-b/a :.6f}')
+    print("the solution is:")
+    print(-b/a)
 
 def secondDegree(a, b, c):
     delta = (b * b) - (4 * a * c)

@@ -34,12 +34,15 @@ def print_equation(equation_factors):
     printReducedForm(equation_factors)
     equationCleanUp(equation_factors)
     polynomial_degree = len(equation_factors)  - 1
-    print("Polynomial degree:", polynomial_degree)
-    if polynomial_degree == 0:
+    if polynomial_degree == -1:
+        print("All real numbers are a solution to this polynomial");
+    elif polynomial_degree == 0:
         print("Please enter a valid polynomial.")
     elif polynomial_degree == 1:
+        print("Polynomial degree:", polynomial_degree)
         solver.firstDegree(equation_factors[1], equation_factors[0])
     elif polynomial_degree == 2:
+        print("Polynomial degree:", polynomial_degree)
         solver.secondDegree(equation_factors[2], equation_factors[1], equation_factors[0])
     else:
         print("The polynomial degree is stricly greater than 2, I can't solve.")
@@ -51,6 +54,8 @@ def equation_recognition(sides):
         exit();
     right_side  = re.findall(general_filter, sides[0])
     left_side  = re.findall(general_filter, sides[1])
+    if (not len(right_side) or not len(left_side)) : 
+        exit();
     fillValueList(equation_factors, right_side, "right")
     fillValueList(equation_factors, left_side, "left")
     if equation_factors:
