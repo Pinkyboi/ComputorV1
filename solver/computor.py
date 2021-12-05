@@ -37,7 +37,7 @@ def print_equation(equation_factors):
     if polynomial_degree == -1:
         print("All real numbers are a solution to this polynomial");
     elif polynomial_degree == 0:
-        print("Please enter a valid polynomial.")
+        print("There is no solution for this polynomial")
     elif polynomial_degree == 1:
         print("Polynomial degree:", polynomial_degree)
         solver.firstDegree(equation_factors[1], equation_factors[0])
