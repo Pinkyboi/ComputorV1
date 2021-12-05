@@ -47,15 +47,29 @@ def print_equation(equation_factors):
     else:
         print("The polynomial degree is stricly greater than 2, I can't solve.")
 
+def throwError(errorMessage):
+    print('\x1b[6;30;41m Error \x1b[0m : ' + errorMessage)
+    exit();
+
+def checkTrailingChar(regexSet, mainSet):
+    for element in regexSet:
+        mainSet = mainSet.replace(element, "", 1)
+    mainSet = mainSet.replace(' ', "")
+    if len(mainSet):
+        throwError("Unknown trailing character")
+
+
 def equation_recognition(sides):
     equation_factors = []
     sides = sides.split("=")
     if len(sides) != 2:
-        exit();
+        throwError("Wrong polynomial format");
     right_side  = re.findall(general_filter, sides[0])
     left_side  = re.findall(general_filter, sides[1])
+    checkTrailingChar(right_side, sides[0])
+    checkTrailingChar(left_side, sides[1])
     if (not len(right_side) or not len(left_side)) : 
-        exit();
+        throwError("Wrong polynomial format")
     fillValueList(equation_factors, right_side, "right")
     fillValueList(equation_factors, left_side, "left")
     if equation_factors:
