@@ -2,7 +2,7 @@ class Solver():
 
     @staticmethod
     def throwSolverWarning(warningMessage):
-        print(f'\x1b[1;37;41m Solver Warning \x1b[0m : {warningMessage}')
+        print(f'\x1b[1;37;42m Solver Warning \x1b[0m : {warningMessage}')
 
     @staticmethod
     def solve(equationDict):
