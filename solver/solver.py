@@ -6,7 +6,7 @@ class Solver():
 
     @staticmethod
     def solve(equationDict):
-        endPower = max(equationDict.keys())
+        endPower = max(k for k, v in equationDict.items() if v != 0)
         allPolinomialFactors = {k: equationDict[k] if k in equationDict.keys() else 0 for k in range(endPower + 1)} 
         if endPower == 0:
             if allPolinomialFactors[0] == 0:
