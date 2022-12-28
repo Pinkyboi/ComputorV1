@@ -3,7 +3,7 @@ import sys
 
 class Parser():
 
-    _general_filter = r"[+-]?\d+.?\d*\*[Xx]\^\d"
+    _general_filter = r"[+-]?\d+\.?\d*\*[X]\^\d+"
     _power_filter   = r"[Xx]\^(?P<power>\d)"
     _number_filter  = r"(?<!\^)(?P<sign>[+-])?(?P<number>\d+\.?\d*)"
 
@@ -13,10 +13,10 @@ class Parser():
 
     def throwParseError(self, errorMessage, token=None):
         if not token:
-            print(f'\x1b[1;37;41m Parser Error \x1b[0m : {errorMessage}')
+            print(f'\x1b[1;37;41m Parser Error \x1b[0m : {errorMessage}.')
         else:
             print(f'\x1b[1;37;41m Parser Error \x1b[0m : {errorMessage} near \'{token}\'.')
-        exit();
+        exit()
 
     def fillValueList(self, sequence, factor = 1):
         for side in sequence:
@@ -26,7 +26,6 @@ class Parser():
             if power not in self._equationFactors.keys():
                 self._equationFactors[power] = 0
             self._equationFactors[power] += number * factor * (-1 if sign == '-' else 1)
-        self._equationFactors = dict(sorted(self._equationFactors.items(), key=lambda item: item[0], reverse=True))
 
     def parseEquationSides(self):
         equationSides = self._equationString.split('=')
@@ -44,7 +43,6 @@ class Parser():
         equationSides = self.parseEquationSides()
         self.fillValueList(equationSides[0], factor = 1)
         self.fillValueList(equationSides[1], factor = -1)
-
     def printEquation(self):
         equationString = ""
         for index, (power, factor) in enumerate(self._equationFactors.items()):
@@ -53,14 +51,7 @@ class Parser():
             equationString += f"{abs(factor)} * X^{power}"
         equationString += " = 0"
         print("Reduced form:", equationString)
-            
+
     @property
     def equationFactors(self):
         return self._equationFactors
-
-if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print("Usage: python3 Parser.py \"<equation>\"")
-        exit()
-    parser = Parser(sys.argv[1])
-    parser.parseEquation()

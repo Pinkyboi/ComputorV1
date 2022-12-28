@@ -5,8 +5,21 @@ class Solver():
         print(f'\x1b[1;37;42m Solver Warning \x1b[0m : {warningMessage}')
 
     @staticmethod
+    def annouceEquation(equationDict, endPower):
+        equationString = ""
+        for index, (power, factor) in enumerate(equationDict.items()):
+            if index != 0:
+                equationString += " + " if factor > 0 else " - "
+            equationString += f"{abs(factor)} * X^{power}"
+        equationString += " = 0"
+        print("Polynomial degree:", endPower)
+        print("Reduced form:", equationString)
+
+    @staticmethod
     def solve(equationDict):
-        endPower = max(k for k, v in equationDict.items() if v != 0)
+        powerList = [k for k, v in equationDict.items() if v != 0]
+        endPower = max(powerList) if len(powerList) else 0
+        Solver.annouceEquation(equationDict, endPower)
         allPolinomialFactors = {k: equationDict[k] if k in equationDict.keys() else 0 for k in range(endPower + 1)} 
         if endPower == 0:
             if allPolinomialFactors[0] == 0:
@@ -54,7 +67,7 @@ class Solver():
                 break   
             x = root 
         return root 
-    
+
     @staticmethod
     def abs(x):
         return x if x >= 0 else -x
