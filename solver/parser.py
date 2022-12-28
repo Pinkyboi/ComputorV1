@@ -4,7 +4,7 @@ import sys
 class Parser():
 
     _general_filter = r"[+-]?\d+\.?\d*\*[X]\^\d+"
-    _power_filter   = r"[Xx]\^(?P<power>\d)"
+    _power_filter   = r"[Xx]\^(?P<power>\d+)"
     _number_filter  = r"(?<!\^)(?P<sign>[+-])?(?P<number>\d+\.?\d*)"
 
     def __init__(self, equationString):
