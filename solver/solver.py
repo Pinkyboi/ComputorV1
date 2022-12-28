@@ -10,6 +10,8 @@ class Solver():
         for index, (power, factor) in enumerate(allPolinomialFactors.items()):
             if index != 0:
                 equationString += " + " if factor > 0 else " - "
+            else:
+                equationString += "-" if factor < 0 else ""
             equationString += f"{abs(factor)} * X^{power}"
         equationString += " = 0"
         print("Polynomial degree:", endPower)
@@ -46,15 +48,18 @@ class Solver():
             if delta > 0:
                 print("Discriminant is strictly positive, the two solutions are:")
                 deltaSqrt = Solver.sqrt(delta)
-                first_solution = f'{(-b - deltaSqrt) / (2 * a) :.6f}'
-                second_solution = f'{(-b + deltaSqrt) / (2 * a) :.6f}'
+                firstSolution = f'{(-b - deltaSqrt) / (2 * a) :.6f}'
+                secondSolution = f'{(-b + deltaSqrt) / (2 * a) :.6f}'
             else:
                 print("Discriminant is strictly negative, the two solutions are:")
                 deltaSqrt = Solver.sqrt(Solver.abs(delta))
-                first_solution = f'{-b / 2 * a :.6f}' + " - " + f'{deltaSqrt / 2 * a:.6f}' + "i"
-                second_solution = f'{-b / 2 * a :.6f}' + " + " + f'{deltaSqrt / 2 * a:.6f}' + "i"
-            print(first_solution)
-            print(second_solution)
+                imaginaryPart = deltaSqrt / (2 * a)
+                firstImaginaryPart = f' + {imaginaryPart:.6f}i' if imaginaryPart > 0 else f' - {abs(imaginaryPart):.6f}i'
+                secondImaginaryPart = f' - {imaginaryPart:.6f}i' if imaginaryPart > 0 else f' + {abs(imaginaryPart):.6f}i'
+                firstSolution = f'{-b / 2 * a :.6f}' + firstImaginaryPart
+                secondSolution = f'{-b / 2 * a :.6f}' + secondImaginaryPart
+            print(firstSolution)
+            print(secondSolution)
 
     @staticmethod
     def sqrt(n, l = 0.000001):  
