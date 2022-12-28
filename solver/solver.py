@@ -5,9 +5,9 @@ class Solver():
         print(f'\x1b[1;37;42m Solver Warning \x1b[0m : {warningMessage}')
 
     @staticmethod
-    def annouceEquation(equationDict, endPower):
+    def annouceEquation(allPolinomialFactors, endPower):
         equationString = ""
-        for index, (power, factor) in enumerate(equationDict.items()):
+        for index, (power, factor) in enumerate(allPolinomialFactors.items()):
             if index != 0:
                 equationString += " + " if factor > 0 else " - "
             equationString += f"{abs(factor)} * X^{power}"
@@ -19,8 +19,8 @@ class Solver():
     def solve(equationDict):
         powerList = [k for k, v in equationDict.items() if v != 0]
         endPower = max(powerList) if len(powerList) else 0
-        Solver.annouceEquation(equationDict, endPower)
         allPolinomialFactors = {k: equationDict[k] if k in equationDict.keys() else 0 for k in range(endPower + 1)} 
+        Solver.annouceEquation(equationDict, endPower)
         if endPower == 0:
             if allPolinomialFactors[0] == 0:
                 print("Every real number is a solution !")
@@ -60,7 +60,7 @@ class Solver():
     def sqrt(n, l = 0.000001):  
         x = n  
         count = 0 
-        while (1) : 
+        while True:
             count += 1 
             root = 0.5 * (x + (n / x))  
             if (abs(root - x) < l) : 

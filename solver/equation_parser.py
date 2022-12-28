@@ -4,7 +4,7 @@ import sys
 class Parser():
 
     _general_filter = r"[+-]?\d+\.?\d*\*[X]\^\d+"
-    _power_filter   = r"[Xx]\^(?P<power>\d+)"
+    _power_filter   = r"[X]\^(?P<power>\d+)"
     _number_filter  = r"(?<!\^)(?P<sign>[+-])?(?P<number>\d+\.?\d*)"
 
     def __init__(self, equationString):
@@ -43,6 +43,7 @@ class Parser():
         equationSides = self.parseEquationSides()
         self.fillValueList(equationSides[0], factor = 1)
         self.fillValueList(equationSides[1], factor = -1)
+
     def printEquation(self):
         equationString = ""
         for index, (power, factor) in enumerate(self._equationFactors.items()):
