@@ -52,8 +52,7 @@ class Solver():
                 secondSolution = f'{(-b + deltaSqrt) / (2 * a) :.6f}'
             else:
                 print("Discriminant is strictly negative, the two solutions are:")
-                deltaSqrt = Solver.sqrt(Solver.abs(delta))
-                imaginaryPart = deltaSqrt / (2 * a)
+                imaginaryPart = Solver.sqrt(Solver.abs(delta)) / (2 * a)
                 firstImaginaryPart = f' + {imaginaryPart:.6f}i' if imaginaryPart > 0 else f' - {abs(imaginaryPart):.6f}i'
                 secondImaginaryPart = f' - {imaginaryPart:.6f}i' if imaginaryPart > 0 else f' + {abs(imaginaryPart):.6f}i'
                 firstSolution = f'{-b / 2 * a :.6f}' + firstImaginaryPart
