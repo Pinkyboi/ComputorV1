@@ -37,7 +37,7 @@ class Solver():
 
     @staticmethod
     def firstDegree(a, b):
-        print(f"the solution is: {(-b / a):.6f}")
+        print(f"The solution is: {(-b / a):.6f}")
 
     @staticmethod
     def secondDegree(a, b, c):
