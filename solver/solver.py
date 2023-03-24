@@ -18,7 +18,8 @@ class Solver():
 
     @staticmethod
     def solve(equationDict):
-        endPower = max(equationDict.keys())
+        powerList  = [k for k, v in equationDict.items() if v != 0]
+        endPower = max(powerList) if len(powerList) else 0
         allPolinomialFactors = {k: equationDict[k] if k in equationDict.keys() else 0 for k in range(endPower + 1)} 
         Solver.annouceEquation(equationDict, endPower)
         if endPower == 0:
@@ -35,8 +36,6 @@ class Solver():
 
     @staticmethod
     def firstDegree(a, b):
-        if a == 0:
-            print("Every real number is a solution !")
         print(f"The solution is: {(-b / a):.6f}")
 
     @staticmethod
