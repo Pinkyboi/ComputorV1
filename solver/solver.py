@@ -5,22 +5,20 @@ class Solver():
         print(f'\x1b[1;37;42m Solver Warning \x1b[0m : {warningMessage}')
 
     @staticmethod
-    def annouceEquation(allPolinomialFactors, endPower):
+    def annouceEquation(equationDict, endPower):
         equationString = ""
-        for index, (power, factor) in enumerate(allPolinomialFactors.items()):
+        for index, (power, factor) in enumerate(equationDict.items()):
             if index != 0:
                 equationString += " + " if factor > 0 else " - "
-            else:
-                equationString += "-" if factor < 0 else ""
-            equationString += f"{abs(factor)} * X^{power}"
+                factor = abs(factor)
+            equationString += f"{factor} * X^{power}"
         equationString += " = 0"
         print("Polynomial degree:", endPower)
         print("Reduced form:", equationString)
 
     @staticmethod
     def solve(equationDict):
-        powerList = [k for k, v in equationDict.items() if v != 0]
-        endPower = max(powerList) if len(powerList) else 0
+        endPower = max(equationDict.keys())
         allPolinomialFactors = {k: equationDict[k] if k in equationDict.keys() else 0 for k in range(endPower + 1)} 
         Solver.annouceEquation(equationDict, endPower)
         if endPower == 0:
@@ -37,11 +35,13 @@ class Solver():
 
     @staticmethod
     def firstDegree(a, b):
+        if a == 0:
+            print("Every real number is a solution !")
         print(f"The solution is: {(-b / a):.6f}")
 
     @staticmethod
     def secondDegree(a, b, c):
-        delta = (b * b) - (4 * a * c)
+        delta = (b ** 2) - (4 * a * c)
         if delta == 0:
             print(f"Discriminant is null the solution is: {(-b / (2 * a)):.6f}")
         else: 
@@ -53,8 +53,8 @@ class Solver():
             else:
                 print("Discriminant is strictly negative, the two solutions are:")
                 imaginaryPart = Solver.sqrt(Solver.abs(delta)) / (2 * a)
-                firstImaginaryPart = f' + {imaginaryPart:.6f}i' if imaginaryPart > 0 else f' - {abs(imaginaryPart):.6f}i'
-                secondImaginaryPart = f' - {imaginaryPart:.6f}i' if imaginaryPart > 0 else f' + {abs(imaginaryPart):.6f}i'
+                firstImaginaryPart = f" {'+' if imaginaryPart > 0 else '-'} {abs(imaginaryPart):.6f}i"
+                secondImaginaryPart = f" {'-' if imaginaryPart > 0 else '+'} {abs(imaginaryPart):.6f}i"
                 firstSolution = f'{-b / 2 * a :.6f}' + firstImaginaryPart
                 secondSolution = f'{-b / 2 * a :.6f}' + secondImaginaryPart
             print(firstSolution)

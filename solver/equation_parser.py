@@ -1,5 +1,4 @@
 import re
-import sys
 
 class Parser():
 
@@ -16,7 +15,7 @@ class Parser():
             print(f'\x1b[1;37;41m Parser Error \x1b[0m : {errorMessage}.')
         else:
             print(f'\x1b[1;37;41m Parser Error \x1b[0m : {errorMessage} near \'{token}\'.')
-        exit()
+        exit(1)
 
     def fillValueList(self, sequence, factor = 1):
         for side in sequence:
@@ -29,29 +28,21 @@ class Parser():
 
     def parseEquationSides(self):
         equationSides = self._equationString.split('=')
+        parsedEquationList = []
         if len(equationSides) != 2:
             self.throwParseError("Invalid number of sides in equation.")
         for index, equationSide in enumerate(equationSides):
-            equationSides[index] = re.findall(self._general_filter, equationSide)
-            if not len(equationSides[index]):
+            parsedEquationList.append(re.findall(self._general_filter, equationSide))
+            if not len(parsedEquationList[index]):
                 self.throwParseError("Invalid syntax", token = equationSide)
-            if ''.join(equationSides[index]) != equationSide:
+            if ''.join(parsedEquationList[index]) != equationSide:
                 self.throwParseError("Invalid syntax", token = equationSide)
-        return equationSides
+        return parsedEquationList
 
     def parseEquation(self):
         equationSides = self.parseEquationSides()
         self.fillValueList(equationSides[0], factor = 1)
         self.fillValueList(equationSides[1], factor = -1)
-
-    def printEquation(self):
-        equationString = ""
-        for index, (power, factor) in enumerate(self._equationFactors.items()):
-            if index != 0:
-                equationString += " + " if factor > 0 else " - "
-            equationString += f"{abs(factor)} * X^{power}"
-        equationString += " = 0"
-        print("Reduced form:", equationString)
 
     @property
     def equationFactors(self):
